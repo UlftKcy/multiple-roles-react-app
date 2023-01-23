@@ -18,6 +18,11 @@ export const validate = (values) => {
     } else if (values.occupation.length > 20) {
         errors.occupation = 'Must be 20 characters or less';
     }
+    if (!values.role) {
+        errors.role = 'Required';
+    } else if (values.role.length > 20) {
+        errors.role = 'Role required';
+    }
     if (!values.phone) {
         errors.phone = 'Required';
     } else if (values.phone.length < 10) {

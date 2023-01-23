@@ -8,8 +8,10 @@ import {
 import { MemoryRouter } from "react-router-dom";
 import Register from "../pages/auth/Register";
 import userEvent from '@testing-library/user-event'
+import selectEvent from "react-select-event";
 
 describe("Register tests", () => {
+    const user = userEvent.setup();
     const registerRoute = "/register";
     afterEach(() => {
         cleanup();
@@ -45,6 +47,14 @@ describe("Register tests", () => {
             </MemoryRouter>
         );
         expect(getOccupation().value).toBe("");
+    });
+    test("role input should be default option selected", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(screen.getByRole("option", { name: 'Select role' }).selected).toBe(true);
     });
     test("phone input should be empty", () => {
         render(
@@ -107,6 +117,19 @@ describe("Register tests", () => {
             expect(getOccupation()).toHaveValue("Engineer");
         });
     });
+    test("role input should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        await user.selectOptions(screen.getByRole('combobox'), "admin");
+        expect(screen.getByRole("option", { name: "Admin" }).selected).toBe(true);
+        expect(screen.getByRole("option", { name: "Select role" }).selected).toBe(false);
+        expect(screen.getByRole("option", { name: "Standart User" }).selected).toBe(false);
+        expect(screen.getByRole("option", { name: "Super User" }).selected).toBe(false);
+    });
     test("phone input should be changed", async () => {
         render(
             <MemoryRouter initialEntries={[registerRoute]}>
@@ -150,11 +173,11 @@ describe("Register tests", () => {
                 <Register onSubmit={handleSubmit} />
             </MemoryRouter>
         );
-        const user = userEvent.setup();
 
         await user.type(getfirstName(), "Ulfet");
         await user.type(getlastName(), "Kacay");
         await user.type(getOccupation(), "engineer");
+        await selectEvent.select(screen.getByRole('combobox', { name: /role/i }), "Admin");
         await user.type(getPhone(), "05432100000");
         await user.type(getEmail(), "test@test.com");
         await user.type(getPassword(), "12345678");

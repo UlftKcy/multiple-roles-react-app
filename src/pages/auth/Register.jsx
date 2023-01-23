@@ -7,27 +7,41 @@ import {
   Heading,
   Input,
   Link,
+  Select,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React from "react";
 import { validate } from "../../validation/registerValidate";
-import { Link as ReachLink } from "react-router-dom";
+import { Link as ReachLink, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const roleOptions = [
+    { name: 'Select role', value: '' },
+    { name: 'Admin', value: 'admin' },
+    { name: 'Standart User', value: 'standart_user' },
+    { name: 'Super User', value: 'super_user' },
+  ]
   const formik = useFormik({
     initialValues: {
       first_name: "",
       last_name: "",
       occupation: "",
+      role: "",
       phone: "",
       email: "",
       password: "",
     },
     validate,
     onSubmit: (values) => {
-      console.log(values);
+      try{
+        localStorage.setItem("user",JSON.stringify(values));
+        navigate("/");
+      }catch(error){
+        throw new Error({cause:error})
+      }
     },
   });
   return (
@@ -56,8 +70,8 @@ const Register = () => {
                 )} /* useFormik() returns a helper method called formik.getFieldProps() to make it faster to wire up inputs */
                 style={{
                   borderColor: `${formik.touched.first_name && formik.errors.first_name
-                      ? "red"
-                      : ""
+                    ? "red"
+                    : ""
                     }`,
                 }}
               />
@@ -75,8 +89,8 @@ const Register = () => {
                 {...formik.getFieldProps("last_name")}
                 style={{
                   borderColor: `${formik.touched.last_name && formik.errors.last_name
-                      ? "red"
-                      : ""
+                    ? "red"
+                    : ""
                     }`,
                 }}
               />
@@ -94,13 +108,24 @@ const Register = () => {
                 {...formik.getFieldProps("occupation")}
                 style={{
                   borderColor: `${formik.touched.occupation && formik.errors.occupation
-                      ? "red"
-                      : ""
+                    ? "red"
+                    : ""
                     }`,
                 }}
               />
               {formik.touched.occupation && formik.errors.occupation ? (
                 <div style={{ color: "red" }}>{formik.errors.occupation}</div>
+              ) : null}
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="role">Role</FormLabel>
+              <Select id="role" name="role" {...formik.getFieldProps("role")}>
+                {React.Children.toArray(roleOptions.map((option) => (
+                  <option value={option.value}>{option.name}</option>
+                )))}
+              </Select>
+              {formik.touched.role && formik.errors.role ? (
+                <div style={{ color: "red" }}>{formik.errors.role}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -147,8 +172,8 @@ const Register = () => {
                 {...formik.getFieldProps("password")}
                 style={{
                   borderColor: `${formik.touched.password && formik.errors.password
-                      ? "red"
-                      : ""
+                    ? "red"
+                    : ""
                     }`,
                 }}
               />
