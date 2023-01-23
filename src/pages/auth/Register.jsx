@@ -55,11 +55,10 @@ const Register = () => {
                   "first_name"
                 )} /* useFormik() returns a helper method called formik.getFieldProps() to make it faster to wire up inputs */
                 style={{
-                  borderColor: `${
-                    formik.touched.first_name && formik.errors.first_name
+                  borderColor: `${formik.touched.first_name && formik.errors.first_name
                       ? "red"
                       : ""
-                  }`,
+                    }`,
                 }}
               />
               {formik.touched.first_name && formik.errors.first_name ? (
@@ -75,11 +74,10 @@ const Register = () => {
                 placeholder="Last Name"
                 {...formik.getFieldProps("last_name")}
                 style={{
-                  borderColor: `${
-                    formik.touched.last_name && formik.errors.last_name
+                  borderColor: `${formik.touched.last_name && formik.errors.last_name
                       ? "red"
                       : ""
-                  }`,
+                    }`,
                 }}
               />
               {formik.touched.last_name && formik.errors.last_name ? (
@@ -95,11 +93,10 @@ const Register = () => {
                 placeholder="Occupation"
                 {...formik.getFieldProps("occupation")}
                 style={{
-                  borderColor: `${
-                    formik.touched.occupation && formik.errors.occupation
+                  borderColor: `${formik.touched.occupation && formik.errors.occupation
                       ? "red"
                       : ""
-                  }`,
+                    }`,
                 }}
               />
               {formik.touched.occupation && formik.errors.occupation ? (
@@ -115,9 +112,8 @@ const Register = () => {
                 placeholder="Phone"
                 {...formik.getFieldProps("phone")}
                 style={{
-                  borderColor: `${
-                    formik.touched.phone && formik.errors.phone ? "red" : ""
-                  }`,
+                  borderColor: `${formik.touched.phone && formik.errors.phone ? "red" : ""
+                    }`,
                 }}
               />
               {formik.touched.phone && formik.errors.phone ? (
@@ -133,9 +129,8 @@ const Register = () => {
                 placeholder="Email"
                 {...formik.getFieldProps("email")}
                 style={{
-                  borderColor: `${
-                    formik.touched.email && formik.errors.email ? "red" : ""
-                  }`,
+                  borderColor: `${formik.touched.email && formik.errors.email ? "red" : ""
+                    }`,
                 }}
               />
               {formik.touched.email && formik.errors.email ? (
@@ -151,11 +146,10 @@ const Register = () => {
                 placeholder="Password"
                 {...formik.getFieldProps("password")}
                 style={{
-                  borderColor: `${
-                    formik.touched.password && formik.errors.password
+                  borderColor: `${formik.touched.password && formik.errors.password
                       ? "red"
                       : ""
-                  }`,
+                    }`,
                 }}
               />
               {formik.touched.password && formik.errors.password ? (
@@ -163,7 +157,6 @@ const Register = () => {
               ) : null}
             </FormControl>
             <Button
-              data-testid="btn_register_submit"
               type="submit"
               colorScheme="purple"
               width="full"

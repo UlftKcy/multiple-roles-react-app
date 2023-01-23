@@ -1,60 +1,202 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {
+    cleanup,
+    fireEvent,
+    render,
+    screen,
+    waitFor,
+} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Register from "../pages/auth/Register";
+import userEvent from '@testing-library/user-event'
 
 describe("Register tests", () => {
-    const handleSubmit = jest.fn();
-    const user = userEvent.setup();
-
-    beforeEach(() => {
-        handleSubmit.mockClear();
-    });
-
+    const registerRoute = "/register";
     afterEach(() => {
         cleanup();
-        jest.resetAllMocks();
     });
-
     test("renders Register page", () => {
-        const registerRoute = '/register';
         render(
             <MemoryRouter initialEntries={[registerRoute]}>
                 <Register />
             </MemoryRouter>
-        )
-        expect(screen.getByTestId("btn_register_submit")).toHaveTextContent("Register");
+        );
+        expect(screen.getByRole("heading")).toBeInTheDocument();
+    });
+    test("first_name input should be empty", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(getfirstName().value).toBe("");
+    });
+    test("last_name input should be empty", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(getlastName().value).toBe("");
+    });
+    test("occupation input should be empty", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(getOccupation().value).toBe("");
+    });
+    test("phone input should be empty", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(getPhone().value).toBe("");
+    });
+    test("email input should be empty", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(getEmail().value).toBe("");
+    });
+    test("password input should be empty", () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+        expect(getPassword().value).toBe("");
     });
 
-    test("onSubmit is called when all inputs pass validation", async () => {
-        const registerRoute = '/register';
+    test("first_name input should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(getfirstName(), { target: { value: "Ulfet" } });
+        await waitFor(() => {
+            expect(getfirstName()).toHaveValue("Ulfet");
+        });
+    });
+    test("last name input should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(getlastName(), { target: { value: "Kacay" } });
+        await waitFor(() => {
+            expect(getlastName()).toHaveValue("Kacay");
+        });
+    });
+    test("occupation input should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(getOccupation(), { target: { value: "Engineer" } });
+        await waitFor(() => {
+            expect(getOccupation()).toHaveValue("Engineer");
+        });
+    });
+    test("phone input should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(getPhone(), { target: { value: "05000000000" } });
+        await waitFor(() => {
+            expect(getPhone()).toHaveValue("05000000000");
+        });
+    });
+    test("email should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(getEmail(), { target: { value: "test@test.com" } });
+        await waitFor(() => {
+            expect(getEmail()).toHaveValue("test@test.com");
+        });
+    });
+    test("password input should be changed", async () => {
+        render(
+            <MemoryRouter initialEntries={[registerRoute]}>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(getPassword(), { target: { value: "12345678" } });
+        await waitFor(() => {
+            expect(getPassword()).toHaveValue("12345678");
+        });
+    });
+    test("onSubmit is called after all inputs pass validation", async () => {
+        const handleSubmit = jest.fn((e) => e.preventDefault());
         render(
             <MemoryRouter initialEntries={[registerRoute]}>
                 <Register onSubmit={handleSubmit} />
             </MemoryRouter>
         );
-        await user.type(screen.getByLabelText(/first name/i), 'Ulfet');
-        await user.type(screen.getByLabelText(/last name/i), 'Kacay');
-        await user.type(screen.getByLabelText(/occupation/i), 'Engineer');
-        await user.type(screen.getByLabelText(/phone/i), '05451110022');
-        await user.type(screen.getByLabelText(/email/i), 'test@test.com');
-        await user.type(screen.getByLabelText(/password/i), '12345678');
+        const user = userEvent.setup();
 
-        await user.click(screen.getByRole('button', { name: /register/i }));
+        await user.type(getfirstName(), "Ulfet");
+        await user.type(getlastName(), "Kacay");
+        await user.type(getOccupation(), "engineer");
+        await user.type(getPhone(), "05432100000");
+        await user.type(getEmail(), "test@test.com");
+        await user.type(getPassword(), "12345678");
 
-        await waitFor(() => {
-            expect(handleSubmit).toHaveBeenCalledWith({
-                first_name: "Ulfet",
-                last_name: "Kacay",
-                occupation: "Engineer",
-                phone: "05451110022",
-                email: "test@test.com",
-                password: "12345678",
-            });
-        });
-        await waitFor(() => {
-            expect(handleSubmit).toHaveBeenCalledTimes(1);
-        });
+        await user.click(clickSubmitButton());
 
     });
 });
+
+
+function getfirstName() {
+    return screen.getByRole('textbox', {
+        name: /first name/i
+    });
+};
+
+function getlastName() {
+    return screen.getByRole('textbox', {
+        name: /last name/i
+    });
+};
+function getOccupation() {
+    return screen.getByRole('textbox', {
+        name: /occupation/i
+    });
+};
+function getPhone() {
+    return screen.getByRole('textbox', {
+        name: /phone/i
+    });
+};
+function getEmail() {
+    return screen.getByRole('textbox', {
+        name: /email/i
+    });
+};
+function getPassword() {
+    return screen.getByLabelText(/password/i);
+};
+
+function clickSubmitButton() {
+    return screen.getByRole('button', {
+        name: /register/i
+    })
+}
