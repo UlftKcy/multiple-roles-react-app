@@ -1,5 +1,8 @@
-export const useAuth = () => {
-    let current_user = JSON.parse(localStorage.getItem("user"));
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 
-    return { current_user };
+const useAuth = () => {
+    return useContext(AuthContext);
 }
+
+export default useAuth;
