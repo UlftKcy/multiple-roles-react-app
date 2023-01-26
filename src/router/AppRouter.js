@@ -6,6 +6,9 @@ import Register from "../pages/auth/Register";
 import Layout from "../layout/Layout";
 import { Fragment } from "react";
 import Dashboard from "../pages/main/Dashboard";
+import StockManagementSystemIndex from "../pages/main/stock-management-system/StockManagementSystemIndex";
+import CostTrackingSystemIndex from "../pages/main/cost-tracking-system/CostTrackingSystemIndex";
+import PersonnelTrackingSystemIndex from "../pages/main/personnel-tracking-system/PersonnelTrackingSystemIndex";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -14,13 +17,18 @@ export const router = createBrowserRouter(
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Route>
-            <Route path="/" element={<Layout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="/admin" element={<ProtectedRoute allowRoles={["admin"]} />}>
+            <Route element={<Layout />}>
+                <Route path="/" element={<ProtectedRoute/>}>
+                    <Route index element={<Dashboard />} />
                 </Route>
-                <Route path="/standart-user" element={<ProtectedRoute allowRoles={["standart_user"]} />}>
+                <Route path="/stock-management-system" element={<ProtectedRoute/>}>
+                    <Route index element={<StockManagementSystemIndex />} />
                 </Route>
-                <Route path="/super-user" element={<ProtectedRoute allowRoles={["super_user"]} />}>
+                <Route path="/cost-tracking-system" element={<ProtectedRoute/>}>
+                    <Route index element={<CostTrackingSystemIndex />} />
+                </Route>
+                <Route path="/personnel-tracking-system" element={<ProtectedRoute/>}>
+                    <Route index element={<PersonnelTrackingSystemIndex />} />
                 </Route>
             </Route>
         </Fragment>

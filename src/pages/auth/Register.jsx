@@ -15,9 +15,12 @@ import { useFormik } from "formik";
 import React from "react";
 import { validate } from "../../validation/registerValidate";
 import { Link as ReachLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
   const navigate = useNavigate();
+  const {setAuth} = useAuth();
+
   const roleOptions = [
     { name: 'Select role', value: '' },
     { name: 'Admin', value: 'admin' },
@@ -37,7 +40,7 @@ const Register = () => {
     validate,
     onSubmit: (values) => {
       try{
-        localStorage.setItem("user",JSON.stringify(values));
+        setAuth(values);
         navigate("/");
       }catch(error){
         throw new Error({cause:error})

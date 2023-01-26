@@ -1,11 +1,11 @@
 import { Avatar, Box, Button, ButtonGroup, Flex, Link, Menu, MenuButton, MenuGroup, MenuItem, MenuList, useColorMode, Wrap, WrapItem } from '@chakra-ui/react';
 import { AiOutlineUser } from "react-icons/ai";
 import { Link as ReachLink } from "react-router-dom"
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import useAuth from '../hooks/useAuth';
 
 const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
-    const {removeItem} = useLocalStorage();
+    const {setAuth} = useAuth();
     return (
         <Flex minWidth='max-content' justify="end" alignItems='center' mb={5}>
             <ButtonGroup gap='2'>
@@ -27,7 +27,7 @@ const Navbar = () => {
                             <MenuGroup>
                                 <MenuItem>Profile</MenuItem>
                                 <MenuItem>
-                                    <Link as={ReachLink} to="/login" onClick={()=>removeItem("user")} w="100%" _hover={{ "textDecoration": "none" }}>
+                                    <Link as={ReachLink} to="/login" onClick={()=>setAuth(null)} w="100%" _hover={{ "textDecoration": "none" }}>
                                         Log Out
                                     </Link>
                                 </MenuItem>
