@@ -14,12 +14,12 @@ import {
 import { useFormik } from "formik";
 import React from "react";
 import { validate } from "../../validation/registerValidate";
-import { Link as ReachLink, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { Link as ReachLink } from "react-router-dom";
+import Mutation from "../../utils/mutation";
+import { v4 as uuidv4 } from 'uuid';
 
 const Register = () => {
-  const navigate = useNavigate();
-  const {setAuth} = useAuth();
+  const { createUserMutation } = Mutation();
 
   const roleOptions = [
     { name: 'Select role', value: '' },
@@ -29,6 +29,7 @@ const Register = () => {
   ]
   const formik = useFormik({
     initialValues: {
+      userId:uuidv4(),
       first_name: "",
       last_name: "",
       occupation: "",
@@ -38,12 +39,11 @@ const Register = () => {
       password: "",
     },
     validate,
-    onSubmit: (values) => {
-      try{
-        setAuth(values);
-        navigate("/");
-      }catch(error){
-        throw new Error({cause:error})
+    onSubmit: async (values) => {
+      try {
+        await createUserMutation.mutateAsync(values);
+      } catch (error) {
+        throw new Error("Something is wrong!", { cause: error });
       }
     },
   });
