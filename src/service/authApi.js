@@ -7,10 +7,10 @@ const authApi = axios.create({
 
 /* authApi.defaults.headers.common['Content-Type'] = 'application/json'; */
 
-export const getUser = async (data) => {
+export const getUser = async (userId) => {
     try {
-        console.log(data)
-        const response = await authApi.get(`/users/${data.userId}`);
+        console.log(userId)
+        const response = await authApi.get(`/users/${userId}`);
         return response.data
     } catch (error) {
         throw new Error("Something is wrong", { cause: error })
