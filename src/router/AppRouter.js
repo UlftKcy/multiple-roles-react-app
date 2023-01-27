@@ -18,16 +18,16 @@ export const router = createBrowserRouter(
                 <Route path="/register" element={<Register />} />
             </Route>
             <Route element={<Layout />}>
-                <Route path="/" element={<ProtectedRoute/>}>
+                <Route path="/" element={<ProtectedRoute allowedRoles={["admin", "super_user", "standart_user"]} />}>
                     <Route index element={<Dashboard />} />
                 </Route>
-                <Route path="/stock-management-system" element={<ProtectedRoute/>}>
+                <Route path="/stock-management-system" element={<ProtectedRoute allowedRoles={["admin", "super_user", "standart_user"]} />}>
                     <Route index element={<StockManagementSystemIndex />} />
                 </Route>
-                <Route path="/cost-tracking-system" element={<ProtectedRoute/>}>
+                <Route path="/cost-tracking-system" element={<ProtectedRoute allowedRoles={["admin", "super_user", "standart_user"]} />}>
                     <Route index element={<CostTrackingSystemIndex />} />
                 </Route>
-                <Route path="/personnel-tracking-system" element={<ProtectedRoute/>}>
+                <Route path="/personnel-tracking-system" element={<ProtectedRoute allowedRoles={["admin", "super_user"]} />}>
                     <Route index element={<PersonnelTrackingSystemIndex />} />
                 </Route>
             </Route>
