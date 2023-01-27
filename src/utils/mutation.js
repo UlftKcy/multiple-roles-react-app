@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
@@ -24,6 +23,7 @@ const Mutation = () => {
             //  use to immediately update a query's cached data
             await queryClient.setQueryData('authUser', context.newUser)
             setAuth(context.newUser);
+            localStorage.setItem("user",JSON.stringify(context.newUser))
             navigate("/");
         },
         onError: async (error, variables, context) => {

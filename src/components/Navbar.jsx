@@ -6,6 +6,11 @@ import useAuth from '../hooks/useAuth';
 const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const {setAuth} = useAuth();
+    const handleLogout = ()=>{
+        localStorage.removeItem("user");
+        setAuth(null);
+    };
+
     return (
         <Flex minWidth='max-content' justify="end" alignItems='center' mb={5}>
             <ButtonGroup gap='2'>
@@ -27,7 +32,7 @@ const Navbar = () => {
                             <MenuGroup>
                                 <MenuItem>Profile</MenuItem>
                                 <MenuItem>
-                                    <Link as={ReachLink} to="/login" onClick={()=>setAuth(null)} w="100%" _hover={{ "textDecoration": "none" }}>
+                                    <Link as={ReachLink} to="/login" onClick={handleLogout} w="100%" _hover={{ "textDecoration": "none" }}>
                                         Log Out
                                     </Link>
                                 </MenuItem>
