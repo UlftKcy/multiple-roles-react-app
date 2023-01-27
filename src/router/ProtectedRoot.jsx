@@ -15,7 +15,6 @@ const ProtectedRoot = ({ allowedRoles }) => {
         return <Unauthorized />
     }
 
-
 }
 
 export default ProtectedRoot;

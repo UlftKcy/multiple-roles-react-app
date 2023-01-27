@@ -2,10 +2,7 @@ import axios from "axios";
 
 const authApi = axios.create({
     baseURL: 'https://63d274a106556a0fdd3ca5c8.mockapi.io',
-    /* withCredentials: true, */
 });
-
-/* authApi.defaults.headers.common['Content-Type'] = 'application/json'; */
 
 export const getUser = async (userId) => {
     try {

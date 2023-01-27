@@ -12,7 +12,7 @@ const Mutation = () => {
     const createUserMutation = useMutation(createUser, {
         // When mutate is called:
         onMutate: async (newUser) => {
-            await queryClient.cancelQueries(["authUser"]); //cancel any in-flight or pending query to the `user` key
+            await queryClient.cancelQueries(["authUser"]); //cancel any in-flight or pending query to the `authUser` key
             const previousUser = queryClient.getQueryData(["authUser"]); // retrieve the cached data
             return {
                 previousUser,
