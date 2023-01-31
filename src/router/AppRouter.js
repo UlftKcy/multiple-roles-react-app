@@ -9,15 +9,16 @@ import Dashboard from "../pages/main/Dashboard";
 import StockManagementSystemIndex from "../pages/main/stock-management-system/StockManagementSystemIndex";
 import CostTrackingSystemIndex from "../pages/main/cost-tracking-system/CostTrackingSystemIndex";
 import PersonnelTrackingSystemIndex from "../pages/main/personnel-tracking-system/PersonnelTrackingSystemIndex";
+import ErrorPage from "../pages/main/ErrorPage";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Fragment>
-            <Route element={<Root />}>
+            <Route element={<Root />} errorElement={<ErrorPage/>}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Route>
-            <Route element={<Layout />}>
+            <Route element={<Layout />} errorElement={<ErrorPage/>}>
                 <Route path="/" element={<ProtectedRoute allowedRoles={["admin", "super_user", "standart_user"]} />}>
                     <Route index element={<Dashboard />} />
                 </Route>
