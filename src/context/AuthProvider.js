@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
         if(current_user){
             setAuth(current_user)
             queryClient.setQueryData('authUser', current_user)
+        }else{
+            setAuth(null)
         }
     },[queryClient])
 
