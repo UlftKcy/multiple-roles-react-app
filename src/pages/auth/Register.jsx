@@ -29,7 +29,7 @@ const Register = () => {
   ]
   const formik = useFormik({
     initialValues: {
-      userId:uuidv4(),
+      userId: uuidv4(),
       first_name: "",
       last_name: "",
       occupation: "",
@@ -79,7 +79,7 @@ const Register = () => {
                 }}
               />
               {formik.touched.first_name && formik.errors.first_name ? (
-                <div data-testid="first_name_error" style={{ color: "red" }}>{formik.errors.first_name}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.first_name}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -98,7 +98,7 @@ const Register = () => {
                 }}
               />
               {formik.touched.last_name && formik.errors.last_name ? (
-                <div style={{ color: "red" }}>{formik.errors.last_name}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.last_name}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -117,7 +117,7 @@ const Register = () => {
                 }}
               />
               {formik.touched.occupation && formik.errors.occupation ? (
-                <div style={{ color: "red" }}>{formik.errors.occupation}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.occupation}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -128,7 +128,7 @@ const Register = () => {
                 )))}
               </Select>
               {formik.touched.role && formik.errors.role ? (
-                <div style={{ color: "red" }}>{formik.errors.role}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.role}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -145,7 +145,7 @@ const Register = () => {
                 }}
               />
               {formik.touched.phone && formik.errors.phone ? (
-                <div style={{ color: "red" }}>{formik.errors.phone}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.phone}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -162,7 +162,7 @@ const Register = () => {
                 }}
               />
               {formik.touched.email && formik.errors.email ? (
-                <div style={{ color: "red" }}>{formik.errors.email}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.email}</div>
               ) : null}
             </FormControl>
             <FormControl>
@@ -181,10 +181,11 @@ const Register = () => {
                 }}
               />
               {formik.touched.password && formik.errors.password ? (
-                <div style={{ color: "red" }}>{formik.errors.password}</div>
+                <div data-testid="error_message" style={{ color: "red" }}>{formik.errors.password}</div>
               ) : null}
             </FormControl>
             <Button
+              id="btn_register"
               type="submit"
               colorScheme="purple"
               width="full"
